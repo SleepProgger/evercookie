@@ -235,6 +235,7 @@ try{
   
   var defaultOptionMap = {
     history: true, // CSS history knocking or not .. can be network intensive
+    historyUseSsl: true,
     java: true, // Java applet on/off... may prompt users for permission to run.
     tests: 10,  // 1000 what is it, actually?
     silverlight: true, // you might want to turn it off https://github.com/samyk/evercookie/issues/45
@@ -258,6 +259,7 @@ try{
    * @class Evercookie
    * @param {Object} options
    * @param {Boolean} options.history CSS history knocking or not .. can be network intensive
+   * @param (Boolean) options.historyUseSsl
    * @param {Boolean} options.java Java applet on/off... may prompt users for permission to run.
    * @param {Number} options.tests
    * @param {Boolean} options.silverlight you might want to turn it off https://github.com/samyk/evercookie/issues/45
@@ -290,6 +292,7 @@ try{
       opts.domain = opts.domain(window);
     }
     var _ec_history = opts.history,
+      _ec_historyUseSsl = opts.historyUseSsl,
       _ec_java =  opts.java,
       _ec_tests = opts.tests,
       _ec_baseurl = opts.baseurl,
@@ -1004,7 +1007,7 @@ try{
       // - is special
       var baseElems = (_baseKeyStr + "-").split(""),
         // sorry google.
-        url = "http://www.google.com/evercookie/cache/" + this.getHost() + "/" + name,
+        url = (_ec_historyUseSsl ? "https" : "http") + "//www.google.com/evercookie/cache/" + this.getHost() + "/" + name,
         i, base,
         letter = "",
         val = "",
